@@ -4,77 +4,85 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🌈 My Interactive Page</title>
+
   <style>
     body {
       font-family: 'Poppins', sans-serif;
       text-align: center;
       padding: 2rem;
       transition: all 0.4s ease;
-      background-color: #fff8e7;
+      background-color: #f3ddeb;
       color: #333;
     }
 
-    h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
 
     button {
       padding: 1rem 2rem;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       border: none;
       border-radius: 10px;
-      background-color: #ffd54f;
+      background-color: #79c7ff;
       cursor: pointer;
       transition: background-color 0.3s ease;
       margin: 10px;
     }
 
-    button:hover { background-color: #ffb300; }
+    button:hover {
+      background-color: #58b2f5;
+    }
 
     .dark {
       background-color: #222;
       color: white;
     }
 
-    #counter {
-      font-size: 1.4rem;
-      margin-top: 1rem;
-    }
-
-    #quote {
-      margin-top: 2rem;
-      font-style: italic;
-      font-size: 1.2rem;
+    #counterText, #quoteText {
+      margin-top: 10px;
+      font-size: 1.1rem;
     }
   </style>
 </head>
+
 <body>
 
   <h1 id="welcome">👋 Hello there!</h1>
-  <p id="greeting">Let's make your page come alive ✨</p>
+  <p id="greeting">Good evening!</p>
 
-  <button id="themeBtn">🌗 Toggle Dark Mode</button>
-  <button id="colorBtn">🎨 Change Background</button>
+  <button id="themeBtn">🌑 Toggle Dark Mode</button>
 
-  <p id="counter">🖱️ Clicks: 0</p>
+  <h2>Click Counter 🧮</h2>
+  <p id="counterText">You've clicked the button 0 times!</p>
+  <button id="clickBtn">Click me!</button>
 
-  <div id="quote">💬 Click the screen to see a quote!</div>
+  <h2>Quote of the Day 💬</h2>
+  <p id="quoteText">Click the button for some inspiration!</p>
+  <button id="quoteBtn">✨ New Quote</button>
 
   <script>
-    const btn = document.getElementById('themeBtn');
+    const themeBtn = document.getElementById('themeBtn');
     const body = document.body;
 
-    // 🌗 Dark mode toggle
-    btn.addEventListener('click', () => {
+    // 🌗 Dark Mode + Background Colour Change
+    const colors = ["#f3ddeb", "#e3f2fd", "#fce4ec", "#e8f5e9", "#fff3e0", "#ede7f6"];
+
+    themeBtn.addEventListener('click', () => {
       body.classList.toggle('dark');
-      countClicks();
+
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      body.style.backgroundColor = randomColor;
     });
 
-    // 👤 Ask for visitor's name
+    // 👤 Ask for name
     const name = prompt("What's your name?");
     if (name) {
-      document.getElementById('welcome').textContent = `Welcome, ${name}! 🎉`;
+      document.getElementById('welcome').textContent = `Welcome, ${name}! 😊`;
     }
 
-    // ⏰ Dynamic greeting
+    // ⏰ Time Greeting
     const hour = new Date().getHours();
     let message;
     if (hour < 12) message = "☀️ Good morning!";
@@ -82,33 +90,37 @@
     else message = "🌙 Good evening!";
     document.getElementById('greeting').textContent = message;
 
-    // 🖱️ Click Counter
+    // 🖱️ Click Counter + Background Change
     let clicks = 0;
-    function countClicks() {
-      clicks++;
-      document.getElementById('counter').textContent = `🖱️ Clicks: ${clicks}`;
-    }
+    const clickBtn = document.getElementById("clickBtn");
+    const counterText = document.getElementById("counterText");
 
-    // 🎨 Random background colour each click
-    const colors = ["#fff8e7", "#e3f2fd", "#fce4ec", "#e8f5e9", "#ede7f6"];
-    document.getElementById('colorBtn').addEventListener('click', () => {
-      const random = colors[Math.floor(Math.random() * colors.length)];
-      body.style.backgroundColor = random;
-      countClicks();
+    clickBtn.addEventListener("click", () => {
+      clicks++;
+      counterText.textContent = `You've clicked the button ${clicks} times!`;
+
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      body.style.backgroundColor = randomColor;
     });
 
-    // 💬 Quote of the day
+    // 💬 Quote of the Day + Background Change
     const quotes = [
       "Believe in yourself 💪",
       "Small steps every day 🚶",
       "You are capable of amazing things ✨",
-      "Stay curious 🧠",
-      "Code. Learn. Grow. 🚀"
+      "Stay focused and never give up 🔥",
+      "Dream big and work hard 🚀"
     ];
 
-    document.body.addEventListener("click", () => {
+    const quoteBtn = document.getElementById("quoteBtn");
+    const quoteText = document.getElementById("quoteText");
+
+    quoteBtn.addEventListener("click", () => {
       const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-      document.getElementById("quote").textContent = `💬 ${randomQuote}`;
+      quoteText.textContent = randomQuote;
+
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      body.style.backgroundColor = randomColor;
     });
   </script>
 
